@@ -1,0 +1,9 @@
+Motion prompt for scene 05 (05_four_fingers_ready): 하루 stands on the gym mat and confidently raises her four fingers toward the camera with a bright determined smile, slow steady push-in zoom from medium shot to close-up, static tripod-style camera with gentle handheld sway, 4 seconds.
+
+Motion prompt for scene 14 (14_pelvic_clock_circle_motion): 하루 rotates her hips in a smooth continuous clockwise circle with her hands resting on her hips, camera slowly orbits a few degrees around her from front to a slight three-quarter angle, 5 seconds.
+
+Motion prompt for scene 20 (20_lunge_hip_press_forward): 하루 gently presses her hips forward and holds the lunge stretch, subtle slow-motion micro-movement of the press, camera slowly pans left to right at hip height, 4 seconds.
+
+Motion prompt for scene 30 (30_oneleg_balance_hip_level): 하루 balances on one leg with her back leg extending straight behind her, slight natural body sway as she holds the pose, camera performs a slow vertical tilt from her feet up to her face, 5 seconds.
+
+Motion prompt for scene 40 (40_subscribe_wave_goodbye): 하루 waves warmly at the camera with a bright thankful smile, camera slowly zooms out from medium shot to a wider full-body shot, 4 seconds.
