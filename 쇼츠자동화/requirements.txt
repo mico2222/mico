@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-multipart
+pyyaml
+python-dotenv
+pillow
+numpy
+srt
+pycapcut
+faster-whisper
+google-cloud-texttospeech
+google-genai

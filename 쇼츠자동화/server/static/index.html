@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>쇼츠자동화</title>
+<style>
+  :root {
+    --primary: #ff1f8f;
+    --accent: #cdf23d;
+    --bg: #14151a;
+    --card: #1e1f26;
+    --text: #f2f2f5;
+    --muted: #9a9aa5;
+    --danger: #ff5a5a;
+    --ok: #58e18a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; background: #0e0f13; border-bottom: 1px solid #2a2b33;
+    position: sticky; top: 0; z-index: 10;
+  }
+  header h1 { font-size: 18px; margin: 0; color: var(--primary); }
+  header nav button {
+    background: none; border: none; color: var(--muted); font-size: 14px;
+    margin-left: 16px; cursor: pointer; padding: 6px 10px; border-radius: 6px;
+  }
+  header nav button.active { color: var(--text); background: #2a2b33; }
+  #build-badge { font-size: 11px; color: #555; }
+  main { max-width: 920px; margin: 0 auto; padding: 20px; }
+  .card {
+    background: var(--card); border-radius: 12px; padding: 18px; margin-bottom: 16px;
+    border: 1px solid #2a2b33;
+  }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  button.primary {
+    background: var(--primary); color: white; border: none; border-radius: 8px;
+    padding: 10px 18px; font-size: 14px; cursor: pointer; font-weight: 600;
+  }
+  button.secondary {
+    background: #2a2b33; color: var(--text); border: 1px solid #3a3b45; border-radius: 8px;
+    padding: 8px 14px; font-size: 13px; cursor: pointer;
+  }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.primary:hover:not(:disabled), button.secondary:hover:not(:disabled) { filter: brightness(1.1); }
+  textarea {
+    width: 100%; min-height: 160px; background: #101116; color: var(--text);
+    border: 1px solid #3a3b45; border-radius: 8px; padding: 12px; font-size: 14px;
+    resize: vertical;
+  }
+  .status-line { font-size: 13px; margin: 4px 0; }
+  .status-ok { color: var(--ok); }
+  .status-fail { color: var(--danger); }
+  .warn-box {
+    background: #2a2410; border: 1px solid #6b5a1a; color: #f0d060; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; margin-top: 10px;
+  }
+  .error-box {
+    background: #2a1414; border: 1px solid #6b1a1a; color: #ff9090; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; margin-top: 10px; white-space: pre-wrap;
+  }
+  .scene-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .scene-card { background: #1a1b21; border: 1px solid #2a2b33; border-radius: 10px; padding: 10px; }
+  .scene-card img, .scene-card video { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 6px; background: #000; }
+  .scene-card .empty-box {
+    width: 100%; aspect-ratio: 9/16; border-radius: 6px; background: #101116;
+    display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px;
+    text-align: center; padding: 8px;
+  }
+  .scene-note { font-size: 12px; color: var(--muted); margin: 6px 0; height: 36px; overflow: hidden; }
+  .pct-badge { font-size: 11px; color: var(--accent); }
+  .nudge-grid { display: grid; grid-template-columns: repeat(3, 28px); grid-template-rows: repeat(2, 28px); gap: 4px; margin-top: 6px; }
+  .nudge-grid button { padding: 0; font-size: 12px; }
+  .cost-tag { color: var(--accent); font-weight: 600; }
+  .step-list { font-size: 13px; color: var(--muted); }
+  .step-list li.done { color: var(--ok); }
+  .step-list li.error { color: var(--danger); }
+  select, input[type=file] { background: #101116; color: var(--text); border: 1px solid #3a3b45; border-radius: 6px; padding: 4px 6px; font-size: 12px; }
+  a { color: var(--accent); }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>쇼츠자동화</h1>
+  <nav>
+    <button data-tab="setup" class="active">설치 상태</button>
+    <button data-tab="new">새 작업</button>
+    <button data-tab="jobs">작업 목록</button>
+  </nav>
+  <span id="build-badge"></span>
+</header>
+<main>
+  <section id="tab-setup"></section>
+  <section id="tab-new" class="hidden"></section>
+  <section id="tab-jobs" class="hidden"></section>
+  <section id="tab-job-detail" class="hidden"></section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

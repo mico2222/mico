@@ -1,0 +1,73 @@
+# ============================================================
+# 쇼츠자동화 설정 파일 — 사람이 직접 고치는 유일한 파일입니다.
+# 비밀 정보(구글 키 경로)는 여기 말고 env.txt 에 넣으세요.
+# 이 파일은 화면(웹 UI)에서 자동으로 덮어쓰지 않습니다 — 직접 텍스트 편집기로 고치세요.
+# ============================================================
+
+channel:
+  name: ""            # 예: AI 돈나
+  topic: ""           # 예: 얼굴 없는 유튜브·AI 도구로 돈 버는 법
+  audience: ""        # 예: 40~60대, AI 처음 만져보는 사람
+
+brand:
+  primary_color: "#ff1f8f"   # 핫핑크
+  accent_color: "#cdf23d"    # 라임
+
+tts:
+  voice_name: "ko-KR-Neural2-C"
+  speaking_rate: 1.0
+  chars_per_sec: 7.3          # 대본 길이 → 예상 초 단위 환산에 쓰는 값 (실측 기반 기본값)
+
+subtitle:
+  font_size: 14
+  color: "#FFFFFF"
+  outline_color: "#000000"
+  place_y: -0.72               # +1 맨위 / 0 가운데 / -1 맨아래 (캡컷 좌표계)
+  safe_top_px: 220             # 쇼츠 UI 가리는 영역 (위)
+  safe_bottom_px: 320          # 쇼츠 UI 가리는 영역 (아래)
+  safe_right_px: 180           # 쇼츠 UI 가리는 영역 (오른쪽)
+
+placement:
+  default_mode: "fill"         # fill | full | zoom
+  default_aspect: 0.5625       # 9:16, 세로 화면의 물리 법칙 참고. 하한은 0.5625 (이보다 작게 잡지 말 것)
+  default_pos_x: 0.5           # 기본은 무조건 정중앙
+  default_pos_y: 0.5
+  nudge_fine_pct: 0.01         # 미세 이동 1%
+  nudge_normal_pct: 0.05       # 보통 이동 5%
+
+capcut:
+  draft_folder: ""             # 비워두면 자동 감지 시도. 못 찾으면 여기에 직접 채우세요.
+
+script_limits:
+  min_chars: 350
+  max_chars: 420
+  min_sentences: 8
+  max_sentences: 13
+  min_sentence_len: 15
+  max_sentence_len: 40
+  hook_max_len: 20
+  max_seconds: 60
+
+pricing:
+  image_won: 55                # 이미지 1장당 예상 비용 (원)
+  video_won_per_4s: 560        # 영상 4초당 예상 비용 (원)
+
+character:
+  sheet_path: "assets/character_sheet_916.png"   # 없으면 빈 값으로 두세요
+  use_face: false              # true 면 상황극에 참조 인물을 씁니다
+
+modes:
+  recycle: false                # 롱폼 재활용 모드 사용 여부 (롱폼 자동편집기 폴더가 있을 때만 true)
+  recycle_folder: ""            # 롱폼 자동편집기 산출물 폴더 경로
+  allow_horizontal_crop_fallback: false   # 가로 영상을 그대로 잘라 쓰는 비상 모드. 기본 꺼짐
+
+hook_card:
+  enabled: false                # 첫 화면 훅 카드. 기본은 꺼둠 (얼굴을 가리므로)
+
+image_gen:
+  model: "gemini-2.5-flash-image"
+  fallback_model: "imagen-4.0-generate-001"
+
+server:
+  host: "127.0.0.1"
+  port: 8765

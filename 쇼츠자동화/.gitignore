@@ -1,0 +1,6 @@
+env.txt
+jobs/
+logs/
+검증결과.txt
+__pycache__/
+*.pyc
