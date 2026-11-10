@@ -17,6 +17,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 RESULT_LINES: list = []
 
 
+def ensure_bootstrap_packages() -> None:
+    """pipeline.common 조차 못 불러오는 상태(yaml 등 미설치)를 먼저 해결한다."""
+    missing = []
+    for mod, pip_name in {"yaml": "pyyaml"}.items():
+        try:
+            __import__(mod)
+        except ImportError:
+            missing.append(pip_name)
+    if not missing:
+        return
+    print(f"검증을 시작하기 전에 필요한 꾸러미({', '.join(missing)})를 설치합니다...")
+    import subprocess
+    proc = subprocess.run([sys.executable, "-m", "pip", "install", *missing])
+    if proc.returncode != 0:
+        print("설치에 실패했습니다. 인터넷 연결을 확인하거나 이 화면을 캡처해서 알려주세요.")
+        input("엔터를 누르면 창이 닫힙니다...")
+        sys.exit(1)
+
+
 def log(msg: str) -> None:
     print(msg)
     RESULT_LINES.append(msg)
@@ -35,6 +54,7 @@ def section(title: str) -> None:
 
 
 def main() -> int:
+    ensure_bootstrap_packages()
     from pipeline.common import (
         check_python_version, find_tool, find_capcut_draft_folder, load_env, load_config,
     )
@@ -71,13 +91,21 @@ def main() -> int:
     if folder_ok:
         try:
             import pycapcut
-            folder = pycapcut.DraftFolder(draft_folder)
-            script = folder.create_draft("검증용_빈초안", 1080, 1920, 30, allow_replace=True)
-            script.save()
-            draft_ok = True
-            check("빈 1080x1920 초안 생성", True, f"{draft_folder}/검증용_빈초안")
-        except Exception as e:  # noqa: BLE001
-            check("빈 1080x1920 초안 생성", False, f"{e}")
+        except ImportError:
+            check(
+                "빈 1080x1920 초안 생성", False,
+                "pycapcut 꾸러미가 아직 안 깔렸습니다. 실행.bat 을 한 번 켰다가 끄거나, "
+                "cmd 에서 'py -3 -m pip install pycapcut' 을 실행해주세요.",
+            )
+        else:
+            try:
+                folder = pycapcut.DraftFolder(draft_folder)
+                script = folder.create_draft("검증용_빈초안", 1080, 1920, 30, allow_replace=True)
+                script.save()
+                draft_ok = True
+                check("빈 1080x1920 초안 생성", True, f"{draft_folder}/검증용_빈초안")
+            except Exception as e:  # noqa: BLE001
+                check("빈 1080x1920 초안 생성", False, f"{e}")
     else:
         check("빈 1080x1920 초안 생성", False, "초안 폴더를 못 찾아 건너뜀 (폴더 항목이 실패면 이 항목도 항상 실패로 남긴다)")
     all_a_ok &= draft_ok
