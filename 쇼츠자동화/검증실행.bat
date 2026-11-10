@@ -1,6 +1,12 @@
 @echo off
 cd /d "%~dp0"
 
+py -3.13 --version >nul 2>nul
+if %ERRORLEVEL%==0 (
+    py -3.13 verify.py
+    goto :end
+)
+
 py -3 --version >nul 2>nul
 if %ERRORLEVEL%==0 (
     py -3 verify.py
