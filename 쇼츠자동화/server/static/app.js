@@ -182,6 +182,7 @@ async function renderJobDetail(jobId) {
         <button class="secondary" id="btn-rework-tts">목소리만 다시</button>
         <button class="secondary" id="btn-rework-align">자막 정렬만 다시</button>
         <button class="secondary" id="btn-rework-plan">씬 분할만 다시</button>
+        <button class="secondary" id="btn-rework-assemble">조립만 다시</button>
       </div>
       <div id="rework-status"></div>
     </div>
@@ -192,6 +193,7 @@ async function renderJobDetail(jobId) {
   document.getElementById("btn-rework-tts").addEventListener("click", () => rework(jobId, "tts"));
   document.getElementById("btn-rework-align").addEventListener("click", () => rework(jobId, "align"));
   document.getElementById("btn-rework-plan").addEventListener("click", () => rework(jobId, "plan"));
+  document.getElementById("btn-rework-assemble").addEventListener("click", () => rework(jobId, "assemble"));
 
   if (job.status.plan === "done") renderReview(jobId);
 }
@@ -262,7 +264,7 @@ async function renderReview(jobId) {
     const status = document.getElementById("assemble-status");
     status.textContent = "캡컷 초안을 만드는 중입니다...";
     try {
-      const result = await api(`/api/jobs/${jobId}/assemble`, { method: "POST" });
+      const result = await api(`/api/jobs/${jobId}/assemble?force=true`, { method: "POST" });
       status.innerHTML = renderCompletion(result);
     } catch (e) {
       status.innerHTML = `<div class="error-box">${e.message}</div>`;
